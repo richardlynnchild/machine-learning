@@ -92,14 +92,24 @@ label with branches to other Nodes, or is a leaf node and contains only a Label.
 Column - list of column names in dataset (attribute names)
 Attributes - dictionary of attribute name -> values (i.e. Temp:['hot','cold'])
 Labels - set of values example can evaluate to (the prediction/result of example)''' 
-def ID3(S,Columns,Attributes,Labels,func):
+def ID3(S,Columns,Attributes,Labels,func,max_depth,current_depth):
+    # If all examples have same label, return leaf node
     if(len(Labels) == 1):
         leaf_name = str(Labels.pop())
         #print('Leaf node: ' + leaf_name)
         return Node(leaf_name)
+
+    # If no more attributes to split on, return leaf with
+    # most common label.
     if(len(Attributes) == 0):
         return Node(str(__most_common__(S,len(Columns)-1)))
-    
+
+    # If reached the max tree depth, return leaf node
+    # with most common label.
+    if max_depth == current_depth:
+        return Node(str(__most_common__(S,len(Columns)-1)))
+
+        
     A = __best_split__(S,Columns,Attributes,Labels,func)
     #print('Splitting on ' + str(A) + '!')
     root = Node(str(A))
@@ -117,7 +127,7 @@ def ID3(S,Columns,Attributes,Labels,func):
                 Labels_v.add(example[len(example)-1])
             #print('Labels: ' + str(len(Labels)))
             #print('Labels_v: ' + str(len(Labels_v)))
-            root.branches[attr_value] = ID3(S_v,Columns,Attributes_v,Labels_v,func)
+            root.branches[attr_value] = ID3(S_v,Columns,Attributes_v,Labels_v,func,max_depth,current_depth+1)
     return root
 
 def Traverse(node):
@@ -151,47 +161,3 @@ def Predict(example,tree,Columns):
     else:
         return False
 
-S = []
-
-Columns = ['buying','maint','doors','persons','lug_boot','safety','label']
-
-Attributes = {'buying':['vhigh','high','med','low'],
-'maint':['vhigh','high','med','low'],
-'doors':['2','3','4','5more'],
-'persons':['2','4','more'],
-'lug_boot':['small','med','big'],
-'safety':['low','med','high']}
-
-with open('./car/train.csv', 'r') as train_file:
-    for line in train_file:
-        terms = line.strip().split(',')
-        S.append(terms)
-
-Labels = set()
-for example in S:
-    Labels.add(example[len(example)-1])
-
-'''prob_dict = __probabilities__(S,Labels)
-print(prob_dict)
-sum = 0.0
-for prob in prob_dict.values():
-    sum += prob 
-print('Sum of probabilities '+str(sum))
-print('Entropy: ' + str(__entropy__(S,Labels)))
-print('Best attribute to split on: ' + __best_split__(S,Columns,Attributes,Labels))
-'''
-tree = ID3(S,Columns,Attributes,Labels,__majority_error__)
-success = 0
-fail = 0
-with open('./car/test.csv','r') as test_file:
-    for line in test_file:
-        example = line.strip().split(',')
-        if Predict(example,tree,Columns):
-            success += 1
-        else:
-            fail += 1
-
-print("Success: " + str(success))
-print("Fail: " + str(fail))
-e_rate = fail/(success+fail)
-print("Error rate: " + str(e_rate))
