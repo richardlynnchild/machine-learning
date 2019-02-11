@@ -20,7 +20,7 @@ Labels = set()
 for example in S:
     Labels.add(example[len(example)-1])
 
-with open('./car_results.csv','a') as results_file:
+with open('./car_results.csv','w') as results_file:
     results_file.write('Depth,Train_ME,Train_Gini,Train_Entropy,Test_ME,' +
                         'Test_Gini,Test_Entropy\n')
 

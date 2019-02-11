@@ -8,7 +8,8 @@ def __most_common__(S,index):
     term_set = set()
     term_counts = dict()
     for example in S:
-        term_set.add(example[index])
+        val = example[index]
+        term_set.add(val)
     for term in term_set:
         term_counts[term] = 0
     for term in term_set:
