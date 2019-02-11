@@ -1,7 +1,20 @@
+'''
+Author: Richard Child
+
+This class implements a Decision Tree learning algorithm, ID3. The
+function will return a Node that contains the information about how
+to predict labels based on features. The Predict function will follow
+the ID3 produced Node and make a prediction.
+'''
+
 from Node import Node
 import operator
 import math
 import copy
+
+########################################
+####    Several Helper Functions    ####
+########################################
 
 '''Return the most common value of the specified column index'''
 def __most_common__(S,index):
@@ -130,18 +143,6 @@ def ID3(S,Columns,Attributes,Labels,func,max_depth,current_depth):
             #print('Labels_v: ' + str(len(Labels_v)))
             root.branches[attr_value] = ID3(S_v,Columns,Attributes_v,Labels_v,func,max_depth,current_depth+1)
     return root
-
-def Traverse(node):
-    current = node
-    
-    if current.isLeaf():
-        #print('!'+str(current.name)+'!')
-        return
-    else:
-        print(current.name)
-        for _,node in current.branches.items():
-            #print('-'+str(branch)+'-')
-            Traverse(node)
 
 '''Given a test example, use a DecisionTree to predict the test
 example's label. If predicted correctly, return True, otherwise 

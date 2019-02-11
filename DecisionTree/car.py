@@ -1,3 +1,14 @@
+'''
+Author: Richard Child
+
+This file is used to test the Decision Tree implementation. A sample
+data set is loaded and then several trees are built and their prediction
+errors are calculated. The max tree depth is also varied. A .csv file
+of the results is produced in the current directory.
+
+Used to answer HW1, Section 2, Question 2
+'''
+
 import DecisionTree as DT
 
 S = []

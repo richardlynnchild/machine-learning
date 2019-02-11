@@ -1,3 +1,9 @@
+'''
+Author: Richard Child
+
+Simple Node object to help implement Decision Tree.
+'''
+
 class Node:
     def __init__(self,name):
         self.name = name
@@ -8,7 +14,3 @@ class Node:
             return True
         else:
             return False
-
-'''n = Node("outlook")
-n.branches = {'overcast':Node(''),'rainy':Node(''),'sunny':Node('')}
-print(n.branches['overcast'].isLeaf())'''

@@ -1,3 +1,16 @@
+'''
+Author: Richard Child
+
+This file is used to test Decision Tree implementation and the handling
+of unknown values in the data set. A sample data set is loaded, numeric
+features are converted to binary ones, and unknown values are replaced
+using a most-common value heuristic. Several decision trees are created
+then used to predict outcomes on the testing data set. The max tree depth
+is varied and the results are written to a .csv file in the current directory.
+
+Used to answer HW1, Section 2, Question 3b.
+'''
+
 import DecisionTree as DT
 import statistics
 

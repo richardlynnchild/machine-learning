@@ -1,3 +1,16 @@
+'''
+Author: Richard Child
+
+This file is used to test the Decision Tree implementation and handle
+numeric feature situation. A sample data set is loaded, numeric features
+are converted to binary ones (using median). Unknown values are kept.
+Several decision trees are created and used to predict values in the 
+test data set. The max tree depth is varied. Results are written to 
+a .csv file.
+
+Used to answer HW1, Section 2, Question 3a.
+'''
+
 import DecisionTree as DT
 import statistics
 
