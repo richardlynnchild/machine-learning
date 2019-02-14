@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 '''
 Author: Richard Child
 
@@ -34,7 +35,9 @@ for example in S:
 with open('./car_results.csv','w') as results_file:
     results_file.write('Depth,Train_ME,Train_Gini,Train_Entropy,Test_ME,' +
                         'Test_Gini,Test_Entropy\n')
-
+print('Running ID3 implementation for Question 2')
+print('Generating decision trees...')
+print('Calculating prediction error rates...')
 for max_depth in range(1,7):
     me = DT.ID3(S,Columns,Attributes,Labels,DT.__majority_error__,max_depth,0)
     gini = DT.ID3(S,Columns,Attributes,Labels,DT.__gini__,max_depth,0)
@@ -85,4 +88,5 @@ for max_depth in range(1,7):
             max_depth,train_me_er,train_gini_er,train_entropy_er,
             test_me_er,test_gini_er,test_entropy_er))
 
-
+print('Results written to car_results.csv')
+print('Finished with Question 2!')
