@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 '''
 Author: Richard Child
 CS 5350 - Assignment 2
